@@ -1,5 +1,7 @@
 """
 
+
+Author:      Claudio Sousa, David Gonzalez
 Data source: http://sci2s.ugr.es/keel/dataset.php?cod=189
 """
 from pprint import pprint
