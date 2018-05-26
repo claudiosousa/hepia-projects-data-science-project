@@ -11,11 +11,7 @@ from sklearn.model_selection import RepeatedKFold
 from sklearn import preprocessing
 import numpy as np
 
-# Constants
-CV_SEGMENT = 5
-CV_REPEAT = 10
-
-def cross_validate(data, models):
+def cross_validate(data, models, n_split, n_repeat):
     """
     Determine the best model by cross-validation.
     Fill the tests result for each model variations,
@@ -24,8 +20,10 @@ def cross_validate(data, models):
     Keyword arguments:
     data -- data on which to test the models
     models -- instanciated model variations to test
+    n_split -- number of split for training and test set
+    n_repeat -- number of times the training will be repeated with different combination
     """
-    rkf = RepeatedKFold(n_splits=CV_SEGMENT, n_repeats=CV_REPEAT)
+    rkf = RepeatedKFold(n_splits=n_split, n_repeats=n_repeat)
     for m in models:
         for mvar in m["model_variations"]:
             mvar["tests"] = []
