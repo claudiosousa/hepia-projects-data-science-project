@@ -52,20 +52,9 @@ def plot_validation(models, best_model):
     disposition = 100 + (len(models) * 10) + 1
     for m_i, m in enumerate(models):
         ax = fig.add_subplot(disposition + m_i)
-        ax.scatter(
-            [[mvar_i] * len(mvar["tests"]) for mvar_i, mvar in enumerate(m["model_variations"])],
-            #[[m_i] * len(mvar["tests"]) for mvar in m["model_variations"]],
-            [mvar["tests"] for mvar in m["model_variations"]],
-            c="black",
-            s=40
-        )
-        ax.scatter(
-            [mvar_i for mvar_i, mvar in enumerate(m["model_variations"])],
-            #[m_i for mvar in m["model_variations"]],
-            [mvar["avg"] for mvar in m["model_variations"]],
-            c=["tab:gray" if m["best"] != mvar else "red" for mvar in m["model_variations"]],
-            s=200
-        )
+        for mvar_i, mvar in enumerate(m["model_variations"]):
+            ax.scatter([mvar_i] * len(mvar["tests"]), mvar["tests"], s=40)
+            ax.scatter(mvar_i, mvar["avg"], c="black" if m["best"] != mvar else "red", s=400, marker="_")
 
         ax.grid(True)
         ax.axis(ymin=0, ymax=1)
