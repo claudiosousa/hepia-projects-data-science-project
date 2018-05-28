@@ -15,7 +15,7 @@ data.data = normalise_data(data.data)
 models = [
     instanciate_kneighbors_model(1, 11),
     instanciate_decisiontree_model(1, 11),
-    instanciate_mlp_model(10)
+    instanciate_mlp_model()
 ]
 
 best_model = cross_validate(data, models, 5, 10)

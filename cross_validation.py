@@ -69,6 +69,12 @@ def plot_validation(models, best_model):
         ax.grid(True)
         ax.axis(ymin=0, ymax=1)
         ax.set_title(m["model_constructor"].__name__ + (" (best)" if m == best_model else ""))
-        ax.set_xlabel("Model variations")
+        ax.set_xlabel(m["x_label"])
         ax.set_ylabel("Performance")
+
+        plt.sca(ax)
+        plt.xticks(range(len(m["model_variations"])), map(lambda v: v['label'], m["model_variations"]))
+        if "rotate_x_labels" in m:
+            plt.xticks(rotation=m["rotate_x_labels"])
+
     plt.show()

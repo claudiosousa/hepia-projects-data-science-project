@@ -22,9 +22,11 @@ def instanciate_kneighbors_model(n_neighbors_min, n_neighbors_max, n_neighbors_s
         "model_constructor": KNeighborsClassifier,
         "model_variations": [
             {
-                "model": KNeighborsClassifier(n_neighbors=i)
+                "model": KNeighborsClassifier(n_neighbors=i),
+                "label": i
             } for i in range(n_neighbors_min, n_neighbors_max, n_neighbors_step)
-        ]
+        ],
+        "x_label": "K-neighbors"
     }
 
 def instanciate_decisiontree_model(min_samples_leaf_min, min_samples_leaf_max, min_samples_leaf_step=1):
@@ -41,26 +43,29 @@ def instanciate_decisiontree_model(min_samples_leaf_min, min_samples_leaf_max, m
         "model_constructor": DecisionTreeClassifier,
         "model_variations": [
             {
-                "model": DecisionTreeClassifier(min_samples_leaf=i)
+                "model": DecisionTreeClassifier(min_samples_leaf=i),
+                "label": i
             } for i in range(min_samples_leaf_min, min_samples_leaf_max, min_samples_leaf_step)
-        ]
+        ],
+        "x_label": "Min samples leaf"
     }
 
-def instanciate_mlp_model(n):
+def instanciate_mlp_model():
     """
     Instanciate MLPClassifier n times.
     http://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html
-
-    Keyword arguments:
-    n -- number of MLP to instanciate
     """
     return {
         "model_constructor": MLPClassifier,
         "model_variations": [
             {
-                "model": MLPClassifier(solver='lbfgs', activation='logistic',
+                "model": MLPClassifier(solver=solver, activation=activator,
                                        max_iter=1000, hidden_layer_sizes=2,
-                                       learning_rate_init=0.1, early_stopping=True)
-            } for i in range(n)
-        ]
+                                       learning_rate_init=0.1, early_stopping=True),
+                "label": f'{solver[:5]},{activator[:4]}'
+            } for solver in ['lbfgs', 'sgd', 'adam']
+            for activator in ['identity', 'logistic', 'tanh', 'relu']
+        ],
+        "x_label": "Solver & activator",
+        "rotate_x_labels": 90
     }
