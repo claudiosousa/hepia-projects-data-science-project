@@ -8,8 +8,20 @@ Author: Claudio Sousa, David Gonzalez
 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import RepeatedKFold
-from sklearn import preprocessing
+from sklearn.preprocessing import MinMaxScaler
 import numpy as np
+
+def normalise_data(data):
+    """
+    Transforms features by scaling each feature to the interval [0,1].
+
+    Keyword arguments:
+    data -- data with features to normalize
+    """
+
+    min_max_scaler = MinMaxScaler()
+    return min_max_scaler.fit_transform(data)
+
 
 def cross_validate(data, models, n_split, n_repeat):
     """
