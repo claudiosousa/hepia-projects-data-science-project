@@ -18,7 +18,7 @@ import pandas as pd
 from models import instanciate_kneighbors_model, instanciate_decisiontree_model, instanciate_mlp_model
 from pprint import pprint
 
-csv = pd.read_csv("data/leaf.csv")
+csv = pd.read_csv("../data/leaf.csv")
 data = Bunch(
     data=np.array([list(d[1:]) for d in csv.values]),
     target=np.array([d[0] for d in csv.values])

@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 
 
-filename = 'data/titanic.dat'
+filename = '../data/titanic.dat'
 data = pd.read_csv(filename)
 min_max_scaler = preprocessing.MinMaxScaler()
 np_scaled = min_max_scaler.fit_transform(data)
