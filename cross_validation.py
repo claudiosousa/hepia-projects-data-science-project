@@ -18,7 +18,6 @@ def normalise_data(data):
     Keyword arguments:
     data -- data with features to normalize
     """
-
     min_max_scaler = MinMaxScaler()
     return min_max_scaler.fit_transform(data)
 
@@ -35,7 +34,7 @@ def cross_validate(data, models, n_split, n_repeat):
     n_split -- number of split for training and test set
     n_repeat -- number of times the training will be repeated with different combination
     """
-    rkf = RepeatedKFold(n_splits=n_split, n_repeats=n_repeat)
+    rkf = RepeatedKFold(n_splits=n_split, n_repeats=n_repeat, random_state=0)
     for m in models:
         for mvar in m["model_variations"]:
             mvar["tests"] = []
