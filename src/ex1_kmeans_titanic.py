@@ -26,19 +26,28 @@ data = data_normalized
 survived_colors = [[1, 0, 0, .2] if s == 0 else [0, 1, 0, .2] for s in data.Survived]
 markers = [m for m in Line2D.filled_markers if m != '8']
 
-best_inertia = float("inf")
-for k in range(4, 5):
-    kmeans = KMeans(n_clusters=k, max_iter=100000, random_state=0)
+k_inertia = []
+
+for k in range(1, 12):
+    kmeans = KMeans(n_clusters=k, max_iter=300, random_state=0)
     labels = kmeans.fit_predict(data)
-    if kmeans.inertia_ > best_inertia:
-        break
-    best_inertia = kmeans.inertia_
-    print(best_inertia)
-    print(k)
-    centroids = kmeans.cluster_centers_
+    k_inertia.append([k, kmeans.inertia_])
+
+k_inertia = list(zip(*k_inertia))
+fig = plt.figure()
+ax = fig.gca()
+ax.set_xticks(range(0, 10, 1))
+ax.set_title("Average distance to centroid per value of k")
+ax.set_xlabel('k')
+ax.set_ylabel('Avg distance to centroid')
+plt.grid()
+plt.plot(k_inertia[0],k_inertia[1])
+
+kmeans = KMeans(n_clusters=5, max_iter=300, random_state=0)
+labels = kmeans.fit_predict(data)
+centroids = kmeans.cluster_centers_
 
 fig = plt.figure()
-
 ax = fig.add_subplot(211, projection='3d')
 
 ax.scatter(data.Class, data.Age, data.Sex, c=survived_colors, edgecolor='k', s=80)
@@ -74,21 +83,4 @@ for i, (var1, var2) in enumerate(combinations(['Class', 'Age', 'Sex'], 2)):
     ax.set_ylabel(var2)
 
 plt.show()
-"""
-c_mean_distances = []
-for i, centroid in enumerate(centroids):
-    mean_distance = centroid_mean_distance(data, i, centroid, labels)
-    c_mean_distances.append(mean_distance)
 
-pprint(c_mean_distances)
-
-
-pred_data = np.array([[0, 0], [4, 4]])
-pred = kmeans.predict(pred_data)
-
-plt.scatter(test_data[:, 0], test_data[:, 1], c=lab)
-plt.scatter(pred_data[:, 0], pred_data[:, 1], s=200, c=pred, marker='o', alpha=0.6)
-plt.show()
-print(lab)
-print(pred)
-"""
