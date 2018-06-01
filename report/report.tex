@@ -202,9 +202,11 @@ Le paramètre \textit{K} n'a que peu d'effet.
 La partie 3 de ce travail suit le même principe que la partie 2 (voir section \ref{part2}),
 mais les 3 méthodes ainsi que les données sont à choix. \\
 
-Les données choisies sont celles sur les feuilles de plantes\footnote{\url{https://archive.ics.uci.edu/ml/datasets/Leaf}}. \\
+Les données choisies sont celles sur les feuilles de plantes\footnote{\url{https://archive.ics.uci.edu/ml/datasets/Leaf}}.
+Il s'agit de données caractérisant des feuilles de plantes.
+Chaque feuille est accompagnée du nom de l'espèce auquelle elle appartient, représentant ici la classe recherchée. \\
 
-Les 3 méthodes sont les suivantes:
+Les 3 méthodes choisies sont les suivantes:
 \begin{itemize}
     \item support vector machines;
     \item forêts aléatoires;
@@ -215,6 +217,8 @@ Pour la méthode des support vector machines, tous les noyaux sont testés. \\
 Pour la méthode des forêts aléatoires ainsi que celle des arbres de décision,
 le nombre minimum d'échantillon dans une feuille est fait varié de 1 à 10 compris. \\
 
+Voici ci-dessous le résultat de la validation croisée pour les méthodes citées sur les données choisies:
+
 \begin{figure}[H]
     \begin{center}
         \includegraphics[width=1\textwidth]{ex3}
@@ -222,6 +226,18 @@ le nombre minimum d'échantillon dans une feuille est fait varié de 1 à 10 com
     \caption{Résultat de la validation croisée sur les données des feuilles de plantes}
     \label{Résultat de la validation croisée sur les données des feuilles de plantes}
 \end{figure}
+
+La première méthode, le SVC, est simplement mauvais, quelque soit le noyau choisi.
+Le noyau \textit{linéaire} est le seul à donner un résultat décent.
+Ceci dit, les paramètres ont tous été laissés par défaut. \\
+
+La meilleure méthode est celle des forêts aléatoires.
+On remarque que de forcer plus d'un élément dans une feuille ne fait qu'empirer le score.
+On peut en déduire que les données ne peuvent être regroupées facilement. \\
+
+La méthode des arbres de décisiona ici été utilisé pour comparer ses performances à la méthode des forêts aléatoires.
+On remarque le même effet concernant le nombre d'élément minimum.
+De manière générale, cette méthode produit un score un peu inférieur à la méthode des forêts aléatoires.
 
 \newpage
 
