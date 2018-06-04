@@ -9,6 +9,7 @@ from itertools import combinations
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import MultipleLocator
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.cluster import KMeans
 from sklearn import preprocessing
@@ -26,7 +27,6 @@ def get_data():
     return data_normalized
 
 data = get_data()
-variables = ['Class', 'Age', 'Sex']
 
 markers = ['o', 's', '^', 'P']
 colormap = LinearSegmentedColormap.from_list('survived', [(1,0,0), (0,1,0)], N=20)
@@ -46,17 +46,33 @@ def plot_inertia(data):
     ax.set_xticks(range(0, limit))
     ax.set_title("Geometric median")
     ax.set_xlabel('k')
-    ax.set_ylabel('$\sum_{i=0}^{n}(C_i - s_i)^2$')
+    ax.set_ylabel('$\sum_{i=0}^{n}(x_i - \mu_i)^2$')
     plt.grid()
     plt.plot(k_inertia[0],k_inertia[1])
 
 
 def group_data_by_variables(data):
+    variables = ['Class', 'Age', 'Sex']
     data = data.groupby(variables)
     count = data.count().values[:, 0]
     mean = data.mean().values[:, 0]
     points = np.array([list(p) for p,_ in data.groups.items()])
     return points, count, mean
+
+def set_axis(ax):
+    x_axis = ['1st', '2nd', '3rd', 'Crew']
+    y_axis = ['adult', 'child']
+    z_axis = ['female', 'male']
+
+    ax.xaxis.set_major_locator(MultipleLocator(1/3))
+    ax.yaxis.set_major_locator(MultipleLocator(1))
+    ax.zaxis.set_major_locator(MultipleLocator(1))
+    ax.w_xaxis.set_ticklabels(x_axis, rotation=90)
+    ax.w_yaxis.set_ticklabels(y_axis, rotation=270)
+    ax.w_zaxis.set_ticklabels(z_axis)
+    ax.set_xlabel('Class')
+    ax.set_ylabel('Age')
+    ax.set_zlabel('Sex')
 
 def plot_3d(points, count, mean):
     fig = plt.figure()
@@ -64,14 +80,11 @@ def plot_3d(points, count, mean):
 
     sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2],c=mean, cmap='RdYlGn', edgecolor='k', s=80, alpha=1)
     cbar = fig.colorbar(sc, orientation='horizontal')
-    cbar.set_label('Survived', rotation=0)
-    ax.w_xaxis.set_ticklabels([])
-    ax.w_yaxis.set_ticklabels([])
-    ax.w_zaxis.set_ticklabels([])
-    ax.set_xlabel('Class')
-    ax.set_ylabel('Age')
-    ax.set_zlabel('Sex')
+    cbar.set_label('Survived')
+
     ax.set_title('Survived')
+
+    set_axis(ax)
 
     for p, c, m in zip(points, count, mean):
        ax.text(p[0], p[1]+0.05, p[2], f'{c}({m:.0%})', zorder=10, color='k')
@@ -97,12 +110,7 @@ for i, c in enumerate(centroids):
     ax.text(c[0], c[1]+0.05, c[2], sum(count[indices]), zorder=10, color=colors[i])
     ax.scatter(points[indices, 0],points[indices, 1], points[indices, 2], marker=markers[i], edgecolor='k', s=80, c=colors[i], alpha=1)
 
-ax.w_xaxis.set_ticklabels([])
-ax.w_yaxis.set_ticklabels([])
-ax.w_zaxis.set_ticklabels([])
-ax.set_xlabel('Class')
-ax.set_ylabel('Age')
-ax.set_zlabel('Sex')
+set_axis(ax)
 ax.set_title('Clusters')
 
 
