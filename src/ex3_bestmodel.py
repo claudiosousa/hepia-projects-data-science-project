@@ -3,7 +3,7 @@ Launch a cross-validation on three models to see which is best on custom data fr
     https://archive.ics.uci.edu/ml/datasets.html
 
 Chosen data: https://archive.ics.uci.edu/ml/datasets/Leaf
-Tested models: KNeighborsClassifier, DecisionTreeClassifier and MLPClassifier.
+Tested models: SVC, RandomForestClassifier, DecisionTreeClassifier.
 
 Author: Claudio Sousa, David Gonzalez
 """
@@ -15,15 +15,11 @@ import numpy as np
 from sklearn.datasets.base import Bunch
 import pandas as pd
 
-from models import instanciate_kneighbors_model, instanciate_decisiontree_model, instanciate_mlp_model
-from pprint import pprint
-
 csv = pd.read_csv("../data/leaf.csv")
 data = Bunch(
     data=np.array([list(d[1:]) for d in csv.values]),
     target=np.array([d[0] for d in csv.values])
 )
-#pprint(data)
 data.data = normalise_data(data.data)
 
 models = [
