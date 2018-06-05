@@ -91,4 +91,4 @@ def output_csv(models, best_model, name):
     with open(name + '.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for m in models:
-            writer.writerow([mvar["avg"] for mvar in m["model_variations"]])
+            writer.writerow(["{:.3f}".format(mvar["avg"]) for mvar in m["model_variations"]])
