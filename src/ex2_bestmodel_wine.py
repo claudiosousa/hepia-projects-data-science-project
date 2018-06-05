@@ -6,7 +6,7 @@ Author: Claudio Sousa, David Gonzalez
 """
 
 from sklearn import datasets
-from cross_validation import cross_validate, plot_validation, normalise_data
+from cross_validation import cross_validate, plot_validation, output_csv, normalise_data
 from models import instanciate_kneighbors_model, instanciate_decisiontree_model, instanciate_mlp_model
 
 data = datasets.load_wine()
@@ -19,4 +19,5 @@ models = [
 ]
 
 best_model = cross_validate(data, models, 5, 10)
+output_csv(models, best_model, "wine")
 plot_validation(models, best_model)

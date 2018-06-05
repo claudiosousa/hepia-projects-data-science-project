@@ -9,7 +9,7 @@ Author: Claudio Sousa, David Gonzalez
 """
 
 from sklearn import datasets
-from cross_validation import cross_validate, plot_validation, normalise_data
+from cross_validation import cross_validate, plot_validation, output_csv, normalise_data
 from models import instanciate_svc_model, instanciate_randomforest_model, instanciate_decisiontree_model
 import numpy as np
 from sklearn.datasets.base import Bunch
@@ -29,4 +29,5 @@ models = [
 ]
 
 best_model = cross_validate(data, models, 5, 10)
+output_csv(models, best_model, "leaf")
 plot_validation(models, best_model)
