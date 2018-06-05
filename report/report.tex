@@ -87,28 +87,29 @@ La méthode de clustering utilisée est le \textit{K-Means} et est testée sur l
 Les buts de cet exercice sont:
 \begin{itemize}
     \item trouver la valeur de K adéquate;
-    \item afficher les cluster sur un graphique 3d;
-    \item commenter les résultats.\\
+    \item afficher les clusters sur un graphique 3D;
+    \item commenter les résultats. \\
 \end{itemize}
 
 \subsection{Normalization des données}
+
 Les différentes variables (\textit{features}) avaient initialement des valeurs qui variaient
 beaucoup et que nous avons normalisé dans la plage $[0, 1]$.
 Nous avons fait le choix de mettre un poids pour la classe (\textit{Survived}) supérieur aux variables de manière à ce que
-une différence de classe ait plus d'importance que une différence de valeur pour une variable.
+une différence de classe ait plus d'importance qu'une différence de valeur pour une variable.
 Après nos tests, nous avons fixé la valeur de la classe dans la plage $[0, 3]$.
 
-Nous avons aussi transformé les données afin que remplacer tous les points qui se trouvent au même endroit dans l'espace
+Nous avons aussi transformé les données afin de remplacer tous les points qui se trouvent au même endroit dans l'espace
 par un seul point qui représente la moyenne des personnes qui ont survécu pour cette combinaison de paramètres.
 
 \subsection{Trouver \textit{K}}
 
 Dans ce chapitre le but est de trouver la valeur de \textit{K} qui minimise
-la moyenne des distances moyennes minimise la distance entre les différents clusters.\\
+la moyenne des distances moyennes entre les différents clusters. \\
 
 Nous avons fait varier \textit{K} et avons utilisé comme mesure de distance la propriété \textit{inertia\_} de l'object KMeans.
 Cette measure est calculée en faisant la somme des carrés des distances ($\sum_{i=0}^{n}(x_i - \mu_i)^2$)
-et est proportionnelle à la "moyenne des distances moyennes".\\
+et est proportionnelle à la "moyenne des distances moyennes". \\
 
 Voici le graphique de la distance en fonction de \textit{K}:
 
@@ -117,16 +118,15 @@ Voici le graphique de la distance en fonction de \textit{K}:
         \includegraphics[width=.8\textwidth]{ex1_geometric_median}
     \end{center}
     \caption{Distance en fonction de \textit{K}}
-    \label{Distance en fonction de \textit{K}}
+    \label{Distance en fonction de K}
 \end{figure}
 
-Nous graphique nous montre que nous trouvons des variations importantes pour $K\in\{2, 4\}$.
+Ce graphique nous montre que nous trouvons des variations importantes pour $K\in\{2, 4\}$.
 Après quelques tests empiriques nous avons fixé $K=4$.
-
 
 \subsection{Affichage des données \textit{K}}
 
-Les données normalisées et transformées sont affichés:
+Les données normalisées et transformées sont affichées:
 
 \begin{figure}[H]
     \begin{center}
@@ -136,10 +136,12 @@ Les données normalisées et transformées sont affichés:
     \label{Survie selon paramètres}
 \end{figure}
 
+Chaque point est accompagné de l'information du nombre de personnes ayant ces paramètres et
+le pourcentage de personnes ayant survécu.
+L'échelle de couleur nous renseigne sur la quantité de personnes ayant survécu,
+allant du rouge pour 0\% jusqu'au vert pour 100\%.
 
-Chaque point est accompagné de l'information du nombre de personnes ayant ces paramètres et le pourcentage de personnes ayant survécu.
-L'échelle de couleur nous renseigne sur la quantité de personnes ayant survécu, allant du rouge pour 0\% jusqu'au vert pour 100\%.
-
+\newpage
 
 \subsection{Clustering}
 
@@ -153,51 +155,52 @@ Voici le résultat du clustering:
     \label{Clustering}
 \end{figure}
 
-
 Chaque point est représenté par un symbole et une couleur selon le cluster auquel le point appartient.
 
 Un point supplémentaire du même symbole et couleur,
-mais de taille plus large symbolise le centre du cluster et a inscrit le nombre de personnes de ce cluster.
+mais de taille plus large symbolise le centre du cluster et est inscrit le nombre de personnes de ce cluster.
 
 \subsection{Commentaires}
 
-Le cluster Triangle Vert forme un groupe de personnes qui sont caractérisées par:
+Le cluster \textit{Triangle Vert} forme un groupe de personnes qui sont caractérisées par:
 \begin{itemize}
     \item leur age: ce sont des enfants;
     \item leur classe: 1ème ou 2ème classe;
-    \item leur taux de survie: 100\%.\\
+    \item leur taux de survie: 100\%. \\
 \end{itemize}
 
-
-Le cluster Croix Rouge forme un groupe de personnes qui sont caractérisées par:
+Le cluster \textit{Croix Rouge} forme un groupe de personnes qui sont caractérisées par:
 \begin{itemize}
     \item leur sexe: ce sont des femmes;
     \item leur classe: 3ème classe;
-    \item leur taux de survie: autour des 50\%.\\
+    \item leur taux de survie: autour des 50\%. \\
 \end{itemize}
 
-Le cluster Cercle Bleu forme un groupe de personnes qui sont caractérisées par:
+Le cluster \textit{Cercle Bleu} forme un groupe de personnes qui sont caractérisées par:
 \begin{itemize}
     \item leur age: ce sont des adultes;
     \item leur sexe: ce sont des femmes;
-    \item leur classe: toute sauf la 3ème;
-    \item leur taux de survie: au dessus de 86\%.\\
+    \item leur classe: toutes sauf la 3ème;
+    \item leur taux de survie: au dessus de 86\%. \\
 \end{itemize}
 
-Le cluster Carré Orange forme un groupe de personnes qui sont caractérisées par:
+Le cluster \textit{Carré Orange} forme un groupe de personnes qui sont caractérisées par:
 \begin{itemize}
     \item leur sexe: ce sont des hommes;
-    \item leur age/classe: ce sont des adultes ou 3ème classe;
+    \item leur age/classe sont:
+    \begin{itemize}
+        \item des hommes toutes classes confondues;
+        \item des garçons en 3ème classe. \\
+    \end{itemize}
 \end{itemize}
 
 Nous pouvons faire quelques remarques:
 \begin{itemize}
     \item les hommes adultes ont très peu survécu;
-    \item ceux de 3ème classe ou eu une mortalité bien plus importante;
+    \item les hommes en 3ème classe ont eu une mortalité bien plus importante;
     \item les enfants ont été épargnés, sauf ceux de 3ème classe;
-    \item les femmes ont une une mortalité relativement basse, sauf celles de 3ème classe;
+    \item les femmes ont une une mortalité relativement basse, sauf celles de 3ème classe.
 \end{itemize}
-
 
 \newpage
 
