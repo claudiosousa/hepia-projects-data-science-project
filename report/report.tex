@@ -12,6 +12,7 @@
 \usepackage{float}
 \usepackage{graphicx}
 \graphicspath{{./img/}}
+\usepackage{csvsimple}
 
 % Reset paragraph indentation -------------------------------------------------
 \setlength{\parindent}{0cm}
@@ -227,7 +228,8 @@ Pour la méthode des k-plus proches voisins, le paramètre \textit{K} est fait v
 Pour la méthode des arbres de décision,
 le nombre minimum d'échantillon dans une feuille est fait varier de 1 à 10 compris. \\
 Concernant la méthode du Perceptron multi-couche,
-toutes les combinaisons de solveurs et de fonctions d'activation possibles sont testées. \\
+toutes les combinaisons de solveurs et de fonctions d'activation possibles sont testées,
+avec 1 couches cachées possédant 2 neurones. \\
 
 La validation croisée divise les données en 5 parties et est répétée 10 fois.
 Cela implique qu'il y aura au total 50 scores de performance pour une méthode donnée.
@@ -240,7 +242,11 @@ En ordonnée, nous avons plusieurs choses.
 Chaque point représente un score.
 Ces points sont regroupés par couleur, qui représente les variations de la méthode.
 Les barres horizontales noires représentent la performance moyenne pour la variation de la méthode concernée.
-La barre horizontale rouge représente la meilleure performance moyenne parmi toutes les variations d'une même méthode.
+La barre horizontale rouge représente la meilleure performance moyenne parmi toutes les variations d'une même méthode. \\
+
+Un tableau de données accompagne chaque graphe et donne les moyennes de chaque variations dans le même ordre que le graphe. \\
+En abscisse, nous avons la variation de ou des paramètres intéressants pour la méthode concernée. \\
+En ordonnée, nous avons les méthodes.
 
 \newpage
 
@@ -256,6 +262,14 @@ Voici ci-dessous le résultat de la validation croisée pour les méthodes cité
     \caption{Résultat de la validation croisée sur les données du cancer du sein}
     \label{Résultat de la validation croisée sur les données du cancer du sein}
 \end{figure}
+
+\begin{table}[H]
+    \begin{center}
+        \csvautotabular{data/breastcancer.csv}
+    \end{center}
+    \caption{Résultat de la validation croisée sur les données du cancer du sein}
+    \label{Résultat de la validation croisée sur les données du cancer du sein}
+\end{table}
 
 De manière générale, les 3 méthodes, avec les paramètres adéquats, donnent des résultats satisfaisants.
 En effet, la plupart des variations donne un score moyen qui dépasse les 90\%. \\
@@ -295,6 +309,14 @@ Voici ci-dessous le résultat de la validation croisée pour les méthodes cité
     \label{Résultat de la validation croisée sur les données des vins}
 \end{figure}
 
+\begin{table}[H]
+    \begin{center}
+        \csvautotabular{data/wine.csv}
+    \end{center}
+    \caption{Résultat de la validation croisée sur les données des vins}
+    \label{Résultat de la validation croisée sur les données des vins}
+\end{table}
+
 Par rapport au données du cancer du sein,
 on remarque immédiatement que les scores sont de manière générale plus étalés.
 On peut donc en déduire que ces données se regroupent moins facilement.
@@ -319,7 +341,8 @@ La partie 3 de ce travail suit le même principe que la partie 2 (voir section \
 mais les 3 méthodes ainsi que les données sont à choix. \\
 
 Les données choisies sont celles caractérisant les feuilles de plantes\footnote{\url{https://archive.ics.uci.edu/ml/datasets/Leaf}}.
-Chaque feuille est accompagnée du nom de l'espèce auquelle elle appartient, représentant ici la classe recherchée. \\
+Chaque feuille est accompagnée du nom de l'espèce auquelle elle appartient, représentant ici la classe recherchée.
+Il y a 340 instances, 16 attributs et 30 classes. \\
 
 Les 3 méthodes choisies sont les suivantes:
 \begin{itemize}
@@ -332,6 +355,8 @@ Pour la méthode des support vector machines, tous les noyaux sont testés. \\
 Pour la méthode des forêts aléatoires ainsi que celle des arbres de décision,
 le nombre minimum d'échantillon dans une feuille est fait varier de 1 à 10 compris. \\
 
+\newpage
+
 Voici ci-dessous le résultat de la validation croisée pour les méthodes citées sur les données choisies:
 
 \begin{figure}[H]
@@ -341,6 +366,14 @@ Voici ci-dessous le résultat de la validation croisée pour les méthodes cité
     \caption{Résultat de la validation croisée sur les données des feuilles de plantes}
     \label{Résultat de la validation croisée sur les données des feuilles de plantes}
 \end{figure}
+
+\begin{table}[H]
+    \begin{center}
+        \csvautotabular{data/leaf.csv}
+    \end{center}
+    \caption{Résultat de la validation croisée sur les données des feuilles de plantes}
+    \label{Résultat de la validation croisée sur les données des feuilles de plantes}
+\end{table}
 
 La première méthode, le SVC, est simplement mauvaise, quelque soit le noyau choisi.
 Le noyau \textit{linéaire} est le seul à donner un résultat décent.
