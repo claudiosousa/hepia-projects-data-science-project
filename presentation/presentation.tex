@@ -8,7 +8,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage{graphicx}
-\graphicspath{{../report/img/}}
+\graphicspath{{../report/img/}{./img/}}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=red}
 \usepackage{pgfpages}
@@ -92,10 +92,22 @@
         \begin{center}
             \includegraphics[width=0.75\textwidth]{ex1_clusters}
         \end{center}
-        \caption{Clustering}
+        \caption{Clustering $(K=4)$}
         \label{Clustering}
     \end{figure}
 \end{frame}
+
+\begin{frame}[plain]
+    \begin{figure}[H]
+        \begin{center}
+            \includegraphics[width=1\textwidth]{survived_clusters}
+        \end{center}
+        \caption{Clustering $(K=4)$}
+        \label{Clustering}
+    \end{figure}
+\end{frame}
+
+
 
 \section{Classification supervisée imposée}
 
